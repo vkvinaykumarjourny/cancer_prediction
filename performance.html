@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Model Performance</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+    background:#0b1020;
+    color:white;
+    font-family:Arial;
+    padding:30px;
+}
+
+.card{
+    background:#1f2937;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+canvas{
+    background:white;
+    border-radius:10px;
+    padding:10px;
+}
+
+a{
+    color:white;
+    text-decoration:none;
+    background:#8b5cf6;
+    padding:10px 20px;
+    border-radius:8px;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>Model Performance Dashboard</h1>
+
+<a href="/">Back Dashboard</a>
+
+<div class="card">
+    <h2>Confusion Matrix</h2>
+    <canvas id="confusionChart"></canvas>
+</div>
+
+<div class="card">
+    <h2>Accuracy Metrics</h2>
+    <ul>
+        <li>Accuracy: 92.3%</li>
+        <li>Precision: 91.8%</li>
+        <li>Recall: 90.5%</li>
+        <li>F1 Score: 91.1%</li>
+    </ul>
+</div>
+
+<script>
+
+new Chart(document.getElementById("confusionChart"), {
+    type: "bar",
+    data: {
+        labels: [
+            "True Positive",
+            "False Positive",
+            "False Negative",
+            "True Negative"
+        ],
+        datasets: [{
+            label: "Cases",
+            data: [45,5,3,47]
+        }]
+    }
+});
+
+</script>
+
+</body>
+</html>

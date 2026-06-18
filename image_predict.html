@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Prediction Result</title>
+
+    <style>
+        body{
+            background:#0b1020;
+            color:white;
+            font-family:Arial;
+            text-align:center;
+            padding:50px;
+        }
+
+        .box{
+            background:#1f2937;
+            padding:30px;
+            border-radius:15px;
+            width:700px;
+            margin:auto;
+        }
+
+        img{
+            width:350px;
+            border-radius:10px;
+            margin:20px;
+        }
+
+        a{
+            text-decoration:none;
+            color:white;
+            background:#8b5cf6;
+            padding:10px 20px;
+            border-radius:8px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="box">
+
+    <h1>Image Prediction Result</h1>
+
+    {% if filename %}
+    <img src="{{ url_for('uploaded_file', filename=filename) }}">
+    {% endif %}
+
+    <h2>{{ result }}</h2>
+
+    <h3>Confidence: {{ confidence }}%</h3>
+
+    <br><br>
+
+    <a href="#">Back Dashboard</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+
+    <style>
+        body{
+            background:#0b1020;
+            color:white;
+            font-family:Arial;
+            text-align:center;
+            padding-top:100px;
+        }
+
+        .box{
+            background:#1f2937;
+            width:500px;
+            margin:auto;
+            padding:30px;
+            border-radius:15px;
+        }
+
+        h1{
+            color:#ef4444;
+        }
+
+        a{
+            color:white;
+            text-decoration:none;
+            background:#8b5cf6;
+            padding:10px 20px;
+            border-radius:8px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="box">
+
+    <h1>{{ result }}</h1>
+
+    <h2>Confidence: {{ confidence }}%</h2>
+
+    <br>
+
+    <a href="/">Back Dashboard</a>
+
+</div>
+
+</body>
+</html>

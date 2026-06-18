@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction History</title>
+
+    <style>
+        body{
+            background:#0b1020;
+            color:white;
+            font-family:Arial;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:#1f2937;
+        }
+
+        th{
+            background:#8b5cf6;
+            padding:15px;
+        }
+
+        td{
+            padding:12px;
+            text-align:center;
+            border-bottom:1px solid #333;
+        }
+
+        tr:hover{
+            background:#374151;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-bottom:20px;
+            padding:10px 20px;
+            background:#8b5cf6;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>Prediction History</h1>
+
+<a href="/" class="btn">Back Dashboard</a>
+<input type="text"
+       id="searchInput"
+       placeholder="Search Patient..."
+       style="
+       width:100%;
+       padding:10px;
+       margin-bottom:20px;
+       border-radius:8px;">
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Age</th>
+    <th>Tumor Size</th>
+    <th>Prediction</th>
+    <th>Action</th>
+</tr>
+
+{% for patient in patients %}
+
+<tr>
+
+    <td>{{ patient.id }}</td>
+    <td>{{ patient.age }}</td>
+    <td>{{ patient.tumor_size }}</td>
+    <td>{{ patient.prediction }}</td>
+
+    <td>
+        <a href="/delete/{{ patient.id }}"
+           style="color:red;text-decoration:none;">
+           Delete
+        </a>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+<script>
+
+document.getElementById("searchInput")
+.addEventListener("keyup", function() {
+
+    let filter = this.value.toLowerCase();
+
+    let rows = document.querySelectorAll("table tr");
+
+    rows.forEach((row, index) => {
+
+        if(index === 0) return;
+
+        let text = row.innerText.toLowerCase();
+
+        row.style.display =
+            text.includes(filter)
+            ? ""
+            : "none";
+
+    });
+
+});
+
+</script>
+</body>
+</html>

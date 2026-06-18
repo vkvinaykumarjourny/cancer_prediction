@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sarcoma Cancer Prediction System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>🧬 Sarcoma AI</h2>
+
+    <a href="/">🏠 Dashboard</a>
+    <a href="#predict">🔬 Predict</a>
+    <a href="/history">📋 History</a>
+    <a href="#analytics">📊 Analytics</a>
+    <a href="#about">ℹ️ About</a>
+    <a href="/export">📥 Export CSV</a>
+    <a href="/report">📄 Download PDF</a>
+    <a href="/logout">🚪 Logout</a>
+    <a href="/performance">📈 Model Performance</a>
+    <a href="/dataset">🗂 Dataset</a>
+</div>
+
+<div class="main">
+
+    <h1>Sarcoma Cancer Prediction System</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Patients</h3>
+            <h2>{{ total_patients }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Sarcoma Cases</h3>
+            <h2>{{ sarcoma_cases }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Benign Cases</h3>
+           <h2>{{ benign_cases }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Model Accuracy</h3>
+         <h2>{{ accuracy }}%</h2>
+        </div>
+
+    </div>
+
+    <div class="form-box" id="predict">
+
+        <h2>Clinical Prediction</h2>
+
+        <form action="/predict" method="POST">
+
+            <input type="number"
+                   name="age"
+                   placeholder="Patient Age"
+                   required>
+
+            <input type="number"
+                   step="0.1"
+                   name="tumor_size"
+                   placeholder="Tumor Size (cm)"
+                   required>
+
+            <button type="submit">
+                Predict Cancer
+            </button>
+
+        </form>
+
+    </div>
+<div class="form-box">
+
+    <h2>Medical Image Prediction</h2>
+
+    <form action="/upload-image"
+          method="POST"
+          enctype="multipart/form-data">
+
+        <input type="file"
+               name="image"
+               required>
+
+<a href="image_predict.html" class="btn">
+        <button type="submit">
+            Analyze Image
+        </button>
+        </a>
+
+    </form>
+
+</div>
+    <div class="chart-container" id="analytics">
+
+        <div class="chart-box">
+            <h2>Sarcoma vs Benign Cases</h2>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h2>Model Accuracy Progress</h2>
+            <canvas id="lineChart"></canvas>
+        </div>
+
+    </div>
+
+    <div class="about-box" id="about">
+
+        <h2>About Project</h2>
+
+        <p>
+            This project predicts the likelihood of Sarcoma Cancer
+            using Machine Learning algorithms trained on clinical
+            patient data. The system helps doctors and researchers
+            analyze patient characteristics and generate predictive
+            insights.
+        </p>
+
+        <h3>Technologies Used</h3>
+
+        <ul>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>Scikit-Learn</li>
+            <li>SQLite</li>
+            <li>HTML / CSS</li>
+            <li>Chart.js</li>
+        </ul>
+
+    </div>
+    <div class="recent-box">
+
+<h2>Recent Predictions</h2>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Age</th>
+    <th>Tumor Size</th>
+    <th>Prediction</th>
+</tr>
+
+{% for patient in latest_patients %}
+
+<tr>
+    <td>{{ patient.id }}</td>
+    <td>{{ patient.age }}</td>
+    <td>{{ patient.tumor_size }}</td>
+    <td>{{ patient.prediction }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+// Pie Chart
+new Chart(document.getElementById("pieChart"), {
+    type: "pie",
+    data: {
+        labels: ["Sarcoma", "Benign"],
+        datasets: [{
+            label: "Cases",
+            data: [
+                {{ sarcoma_cases }},
+                {{ benign_cases }}
+            ],
+            backgroundColor: [
+                "#ef4444",
+                "#22c55e"
+            ]
+        }]
+    }
+});
+
+// Line Chart
+new Chart(document.getElementById("lineChart"), {
+    type: "line",
+    data: {
+        labels: [
+            "Epoch 1",
+            "Epoch 2",
+            "Epoch 3",
+            "Epoch 4",
+            "Epoch 5"
+        ],
+        datasets: [{
+            label: "Accuracy %",
+            data: [65, 75, 82, 89, 92],
+            borderColor: "#8b5cf6",
+            fill: false,
+            tension: 0.4
+        }]
+    }
+});
+
+</script>
+
+</body>
+</html>
